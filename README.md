@@ -2,14 +2,6 @@
 # APCS - Stuyrim
 
 
-## Very definitely balanced classes
-|Name | Diglett| Shaymin |
-|----|----|---|
-|Special Trait | Depth (start w/ 10, no max) | Petals, (start w/ 10, no max)|
-| Normal Attack | Dig: Digs into the ground, restoring 10 Depth! (no damage) | Debuffs selected enemy, reducing their attack power (no damage)|
-| Support | Increases max health by 2hp for allies | Heals ally for 4hp and regains 5 petals        |
-| Special Attack | High AOE damage to all enemies. Consumes 25 depth|Uses 15 petals to buff damage of all allies|
-
 
 ## Features
 
@@ -30,3 +22,10 @@ Make a clear list of features that work/dont work
 
 replace this with your documentation for your two Adventurer subclasses. If you modify or replace the provided CodeWarrior class, please provide documentation for that as well.
 
+Very definitely balanced classes
+|Name | Diglett| Shaymin |
+|----|----|---|
+|Special Trait | Depth (start w/ 10, no max) | Petals, (start w/ 10, no max)|
+| Normal Attack | Dig: Digs into the ground, restoring 10 Depth! (no damage) | Debuffs selected enemy, reducing their attack power (no damage)|
+| Support | Increases max health by 2hp for allies | Heals ally for 4hp and regains 5 petals        |
+| Special Attack | High AOE damage to all enemies. Consumes 25 depth|Uses 15 petals to buff damage of all allies|
