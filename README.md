@@ -1,6 +1,16 @@
 [![Review Assignment Due Date](https://classroom.github.com/assets/deadline-readme-button-22041afd0340ce965d47ae6ef1cefeee28c7c493a6346c4f15d667ab976d596c.svg)](https://classroom.github.com/a/KprAwj1n)
 # APCS - Stuyrim
 
+
+## Very definitely balanced classes
+|Name | Diglett| Shaymin |
+|----|----|---|
+|Special Trait | Depth (start w/ 10, no max) | Petals, (start w/ 10, no max)|
+| Normal Attack | Dig: Digs into the ground, restoring 10 Depth! (no damage) | Debuffs selected enemy, reducing their attack power (no damage)|
+| Support | Increases max health by 2hp for allies | Heals ally for 4hp and regains 5 petals        |
+| Special Attack | High AOE damage to all enemies. Consumes 25 depth|Uses 15 petals to buff damage of all allies|
+
+
 ## Features
 
 Make a clear list of features that work/dont work
