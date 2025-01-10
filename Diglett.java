@@ -36,46 +36,45 @@ public class Diglett extends Adventurer{
       return depthMax;
     }
     public String toStringDebug(){
-        return "Digglett " + getName() + ": " + getSpecial() + ", " + getHPDebug();
+        return "Digglett " + getName() + ": " + getSpecialDebug() + ", " + getHPDebug();
     }
   
     /*not done */
     /*Deal 2-7 damage to opponent, restores 2 caffeine*/
     public String attack(Adventurer other){
-      int damage = (int)(Math.random()*6)+2;
-      other.applyDamage(damage);
-      restoreSpecial(2);
-      return this + " attacked "+ other + " and dealt "+ damage +
-      " points of damage. They then take a sip of their coffee.";
+        return attack();
+
+    }
+
+    public String attack(){
+        restoreSpecial(10);
+        return this + " dug into the ground, restoring 10 depth!";
     }
   
-    /*Deal 3-12 damage to opponent, only if caffeine is high enough.
-    *Reduces caffeine by 8.
+    /*AOE damage to all enemies
     */
     public String specialAttack(Adventurer other){
-      if(getSpecial() >= 8){
-        setSpecial(getSpecial()-8);
-        int damage = (int)(Math.random()*5+Math.random()*5)+3;
-        other.applyDamage(damage);
-        return this + " used their "+
-        " skills to hack the matrix. "+
-        " This glitched out "+other+" dealing "+ damage +" points of damage.";
-      }else{
-        return "Not enough caffeine to use the ultimate code. Instead "+attack(other);
-      }
+        if(getSpecial() >= 30){
+            //execute attack
+            return this + " burst out of the ground and dealt " + 20 +" damage to all enemies";
+        }else{
+            return "Not enough depth to burst out and attack. Instead "+attack( other);
+        }
   
     }
-    /*Restores 5 special to other*/
+
+    /*Increases hp of all allies by 2 */
     public String support(Adventurer other){
-      return "Gives a coffee to "+other+" and restores "
-      + other.restoreSpecial(5)+" "+other.getSpecialName();
-    }
-    /*Restores 6 special and 1 hp to self.*/
+        return support();}
+
     public String support(){
-      int hp = 1;
-      setHP(getHP()+hp);
-      return this+" drinks a coffee to restores "+restoreSpecial(6)+" "
-      + getSpecialName()+ " and "+hp+" HP";
+        if(getSpecial() >= 5){
+            setSpecial(getSpecial()-5);
+            //I would put the hp increases if I had somewhere to put them.
+            return this + " stabilized the earth, increasing the max HP of all allies by 2";
+          }else{
+            return "Not enough depth to stabilize the earth. Instead "+attack();
+          }
     }
   }
   
