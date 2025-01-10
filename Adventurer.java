@@ -1,7 +1,25 @@
 import java.util.Random;
+import java.util.ArrayList;
+
 public abstract class Adventurer{
   private String name;
   private int HP,maxHP;
+  private ArrayList<Adventurer> friends;
+  private ArrayList<Adventurer> enemies;
+
+  public void addEnemy(Adventurer enemy){
+    enemies.add(enemy);
+  }
+  public void addFriend(Adventurer friend){
+    friends.add(friend);
+  }
+
+  public ArrayList<Adventurer> getEnemies(){
+    return enemies;
+  }
+  public ArrayList<Adventurer> getFriends(){
+    return friends;
+  }
 
   //Abstract methods are meant to be implemented in child classes.
   /*
@@ -69,6 +87,9 @@ public abstract class Adventurer{
     this.name = name;
     this.HP = hp;
     this.maxHP = hp;
+    this.enemies = new ArrayList<Adventurer>();
+    this.friends = new ArrayList<Adventurer>();
+
   }
 
   //toString method

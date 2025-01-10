@@ -56,6 +56,9 @@ public class Diglett extends Adventurer{
     public String specialAttack(Adventurer other){
         if(getSpecial() >= 30){
             //execute attack
+            for(Adventurer enemy: getEnemies()){
+                enemy.applyDamage(20);
+            }
             return this + " burst out of the ground and dealt " + 20 +" damage to all enemies";
         }else{
             return "Not enough depth to burst out and attack. Instead "+attack( other);
