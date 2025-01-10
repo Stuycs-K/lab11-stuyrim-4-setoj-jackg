@@ -89,7 +89,7 @@ public abstract class Adventurer{
     this.maxHP = hp;
     this.enemies = new ArrayList<Adventurer>();
     this.friends = new ArrayList<Adventurer>();
-
+    friends.add(this);
   }
 
   //toString method

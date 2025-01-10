@@ -73,7 +73,10 @@ public class Diglett extends Adventurer{
     public String support(){
         if(getSpecial() >= 5){
             setSpecial(getSpecial()-5);
-            //I would put the hp increases if I had somewhere to put them.
+            for(Adventurer friend: getFriends()){
+                friend.setmaxHP(friend.getmaxHP() + 2);
+            }
+            
             return this + " stabilized the earth, increasing the max HP of all allies by 2";
           }else{
             return "Not enough depth to stabilize the earth. Instead "+attack();
