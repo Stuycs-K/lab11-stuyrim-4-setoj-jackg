@@ -80,7 +80,7 @@ public abstract class Adventurer{
   public String getName(){
     return name;
   }
-
+  
   public int getHP(){
     return HP;
   }
@@ -90,6 +90,18 @@ public abstract class Adventurer{
   }
   public void setmaxHP(int newMax){
     maxHP = newMax;
+  }
+
+  public String toStringDebug(){
+    return getName() + ": " + getSpecial() + ", " + getHPDebug();
+  }
+
+  public String getSpecialDebug(){
+    return getSpecialName() + " " + getSpecial() + "/" + getSpecialMax();
+  }
+
+  public String getHPDebug(){
+    return "HP " + getHP() + "/" + getmaxHP();
   }
 
   //Set Methods
