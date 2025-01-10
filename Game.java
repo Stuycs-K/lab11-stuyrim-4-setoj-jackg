@@ -12,18 +12,46 @@ public class Game{
   //Display the borders of your screen that will not change.
   //Do not write over the blank areas where text will appear or parties will appear.
   public static void drawBackground(){
-    /*>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>*/
-    //YOUR CODE HERE
-    /*<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<*/
+        for (int i = 0; i < WIDTH; i++){
+            Text.go(0, i);
+            System.out.print(Text.colorize("@",100));
+        }
+        for (int i = 0; i < HEIGHT; i++){
+            Text.go(i, 0);
+            System.out.print(Text.colorize("@",100));
+        }
+        for (int i = 0; i < HEIGHT; i++){
+            Text.go(i, 80);
+            System.out.print(Text.colorize("@",100));
+        }
+        for (int i = 0; i < WIDTH + 1; i++){
+            Text.go(30, i);
+            System.out.print(Text.colorize("@",100));
+        }
   }
 
   //Display a line of text starting at
   //(columns and rows start at 1 (not zero) in the terminal)
   //use this method in your other text drawing methods to make things simpler.
   public static void drawText(String s,int startRow, int startCol){
-    /*>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>*/
-    //YOUR CODE HERE
-    /*<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<*/
+
+    if (startCol + s.length() < WIDTH){
+      Text.go(startRow, startCol);
+      System.out.print(s);
+    }
+    else {
+      Text.go(startRow, startCol);
+      System.out.print(s.substring(0, startCol + s.length() % WIDTH));
+      for (int i = 0; i < (s.length() - s.length() % WIDTH) / WIDTH; i++){
+        if (startCol + 1 + i < HEIGHT){
+          Text.go(startRow, startCol + 1 + i);
+          System.out.print(s.substring(s.length() % WIDTH + i * WIDTH));
+        }
+
+      }
+    }
+
+
   }
 
   /*Use this method to place text on the screen at a particular location.
