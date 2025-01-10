@@ -6,6 +6,7 @@ public abstract class Adventurer{
   private int HP,maxHP;
   private ArrayList<Adventurer> friends;
   private ArrayList<Adventurer> enemies;
+  private int ATKstatus;
 
   public void addEnemy(Adventurer enemy){
     enemies.add(enemy);
@@ -79,6 +80,10 @@ public abstract class Adventurer{
   */
 
   public void applyDamage(int amount){
+    if(ATKstatus != 0){
+      amount -= ATKstatus;
+      ATKstatus = 0;
+    }
     this.HP -= amount;
   }
 
@@ -97,9 +102,20 @@ public abstract class Adventurer{
     this.maxHP = hp;
     this.enemies = new ArrayList<Adventurer>();
     this.friends = new ArrayList<Adventurer>();
-    friends.add(this);
+    this.ATKstatus = 0;
   }
 
+  public void changeATKstatus(int change){
+    ATKstatus += change;
+  }
+
+  public int getATKstatus(){
+    return ATKstatus;
+  }
+
+  public String getATKstatusdebug(){
+    return "ATK Buffs/Debuffs:  " + getATKstatus();
+  }
   //toString method
   public String toString(){
     return this.getName();
@@ -122,7 +138,7 @@ public abstract class Adventurer{
   }
 
   public String toStringDebug(){
-    return getName() + ": " + getSpecial() + ", " + getHPDebug();
+    return getName() + ": " + getSpecialDebug() + ", " + getHPDebug() + ", " + getATKstatusdebug();
   }
 
   public String getSpecialDebug(){
