@@ -3,7 +3,7 @@ import java.util.ArrayList;
 public class Tester {
     public static void main(String[] args){
         Adventurer f1 = new Diglett("My hero");
-        Adventurer f2 = new Diglett("My other hero");
+        Adventurer f2 = new Shaymin();
 
         Adventurer ene1 = new CodeWarrior("villain 1");
         Adventurer ene2 = new CodeWarrior("villan 2");
@@ -30,7 +30,8 @@ public class Tester {
         System.out.println(f1.attack(ene2));
         System.out.println(f1.specialAttack(ene2));
         System.out.println(f1.support());
-
+        System.out.println(f2.attack(ene1));
+        System.out.println(ene1.attack(f1));
 
         System.out.println(f1.toStringDebug());
         System.out.println(f2.toStringDebug());

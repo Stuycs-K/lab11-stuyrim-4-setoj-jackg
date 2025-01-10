@@ -76,7 +76,7 @@ public abstract class Adventurer{
   public abstract String specialAttack(Adventurer other);
 
   /*
-  standard methods
+  Note to self: Buffs/Debuffs do not properly apply
   */
 
   public void applyDamage(int amount){
@@ -121,6 +121,14 @@ public abstract class Adventurer{
     return this.getName();
   }
 
+  public boolean useSpecial(int amtused){
+    if(getSpecial() >= amtused){
+      setSpecial(getSpecial() - amtused);
+      return true;
+    }else{
+      return false;
+    }
+  }
   //Get Methods
   public String getName(){
     return name;
