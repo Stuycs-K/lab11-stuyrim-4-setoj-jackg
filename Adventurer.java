@@ -17,6 +17,14 @@ public abstract class Adventurer{
   public ArrayList<Adventurer> getEnemies(){
     return enemies;
   }
+  public void setFriends(ArrayList<Adventurer> friends){
+    this.friends = friends;
+  }
+
+  public void setEnemies(ArrayList<Adventurer> enemies){
+    this.enemies = enemies;
+  }
+
   public ArrayList<Adventurer> getFriends(){
     return friends;
   }
@@ -101,7 +109,7 @@ public abstract class Adventurer{
   public String getName(){
     return name;
   }
-  
+
   public int getHP(){
     return HP;
   }
