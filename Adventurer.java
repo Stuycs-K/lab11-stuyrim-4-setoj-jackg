@@ -95,9 +95,21 @@ public abstract class Adventurer{
     target.applyDamage(amount);
     return amount + buffdebuff;
   }
-  // public void damageOther(ArrayList<Adventurer> targets){
+  public String damageOther(ArrayList<Adventurer> targets, int amount){
+    String buffdebuff = "";
+    if(ATKstatus < 0){
+      buffdebuff = " (" + ATKstatus + " debuff from " + amount + ")";
+    }else if(ATKstatus > 0){
+      buffdebuff = " (" + ATKstatus + " buff from " + amount + ")";
+    }
+    amount += ATKstatus;
+    ATKstatus = 0;
+    for(Adventurer target: targets){
+      target.applyDamage(amount);
 
-  // }
+    }
+    return amount + buffdebuff;
+  }
   //You did it wrong if this happens.
   public Adventurer(){
     this("Lester-the-noArg-constructor-string");
