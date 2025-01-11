@@ -43,9 +43,11 @@ public class CodeWarrior extends Adventurer{
   /*Deal 2-7 damage to opponent, restores 2 caffeine*/
   public String attack(Adventurer other){
     int damage = (int)(Math.random()*6)+2;
-    other.applyDamage(damage);
+    // other.applyDamage(damage);
+    
+
     restoreSpecial(2);
-    return this + " attacked "+ other + " and dealt "+ damage +
+    return this + " attacked "+ other + " and dealt "+ damageOther(other, damage) +
     " points of damage. They then take a sip of their coffee.";
   }
 
@@ -56,10 +58,11 @@ public class CodeWarrior extends Adventurer{
     if(getSpecial() >= 8){
       setSpecial(getSpecial()-8);
       int damage = (int)(Math.random()*5+Math.random()*5)+3;
-      other.applyDamage(damage);
+      // other.applyDamage(damage);
+
       return this + " used their "+preferredLanguage+
       " skills to hack the matrix. "+
-      " This glitched out "+other+" dealing "+ damage +" points of damage.";
+      " This glitched out "+other+" dealing "+ damageOther(other, damage) +" points of damage.";
     }else{
       return "Not enough caffeine to use the ultimate code. Instead "+attack(other);
     }

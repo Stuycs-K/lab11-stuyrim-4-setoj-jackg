@@ -80,13 +80,24 @@ public abstract class Adventurer{
   */
 
   public void applyDamage(int amount){
-    if(ATKstatus != 0){
-      amount -= ATKstatus;
-      ATKstatus = 0;
-    }
     this.HP -= amount;
   }
+  public String damageOther(Adventurer target, int amount){
+    String buffdebuff = "";
 
+    if(ATKstatus < 0){
+      buffdebuff = " (" + ATKstatus + " debuff from " + amount + ")";
+    }else if(ATKstatus > 0){
+      buffdebuff = " (" + ATKstatus + " buff from " + amount + ")";
+    }
+    amount += ATKstatus;
+    ATKstatus = 0;
+    target.applyDamage(amount);
+    return amount + buffdebuff;
+  }
+  // public void damageOther(ArrayList<Adventurer> targets){
+
+  // }
   //You did it wrong if this happens.
   public Adventurer(){
     this("Lester-the-noArg-constructor-string");
