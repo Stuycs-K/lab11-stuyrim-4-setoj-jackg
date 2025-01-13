@@ -61,14 +61,12 @@ public class Shaymin extends Adventurer{
   }
   /*Restores 5 special to other*/
   public String support(Adventurer other){
-    return "Gives a coffee to "+other+" and restores "
-    + other.restoreSpecial(5)+" "+other.getSpecialName();
+    other.restoreHP(2);
+    other.restoreSpecial(5);
+    return  this + " found a magical berry that heals " + 2 + " hp and restores " + 5 + " " + other.getSpecialName() + " to " + other;
   }
   /*Restores 6 special and 1 hp to self.*/
   public String support(){
-    int hp = 1;
-    setHP(getHP()+hp);
-    return this+" drinks a coffee to restores "+restoreSpecial(6)+" "
-    + getSpecialName()+ " and "+hp+" HP";
+    return support(this);
   }
 }

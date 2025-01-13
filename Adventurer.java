@@ -123,7 +123,7 @@ public abstract class Adventurer{
   public Adventurer(String name){
     this(name, 10);
   }
-
+  
   public Adventurer(String name, int hp){
     this.name = name;
     this.HP = hp;
@@ -169,6 +169,15 @@ public abstract class Adventurer{
   public int getmaxHP(){
     return maxHP;
   }
+  
+  public void restoreHP(int amt){
+    if(getHP() + amt >=  getmaxHP()){
+      setHP(getmaxHP());
+    }else{
+      setHP(amt + getHP());
+    }
+  }
+
   public void setmaxHP(int newMax){
     maxHP = newMax;
   }
