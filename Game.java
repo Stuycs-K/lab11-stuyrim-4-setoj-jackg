@@ -7,8 +7,13 @@ public class Game{
 
   public static void main(String[] args) {
     run();
+    // test();
   }
 
+  public static void test(){
+    Text.clear();
+    TextBox(2, 2, 2, 4, "12345678");
+  }
   //Display the borders of your screen that will not change.
   //Do not write over the blank areas where text will appear or parties will appear.
   public static void drawBackground(){
@@ -65,9 +70,18 @@ public class Game{
   *@param height the number of rows
   */
   public static void TextBox(int row, int col, int width, int height, String text){
-    /*>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>*/
-    //YOUR CODE HERE
-    /*<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<*/
+    int placed = 0;
+    while(placed < text.length()){
+      Text.go(row, col);
+      if(text.length() - placed > width){
+        System.out.println(text.substring(placed, placed + width));
+        placed += width;
+        row++;
+      }else{
+        System.out.println(text.substring(placed));
+        placed = text.length();
+      }
+    }
   }
 
 
