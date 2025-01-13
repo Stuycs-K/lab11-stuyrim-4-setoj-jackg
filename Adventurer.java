@@ -53,6 +53,11 @@ public abstract class Adventurer{
     return n;
   }
 
+  public void changeATKstatus(ArrayList<Adventurer> targets, int amt){
+    for(Adventurer target:targets){
+      target.changeATKstatus(amt);
+    }
+  }
   /*
   all adventurers must have a way to attack enemies and
   support their allys

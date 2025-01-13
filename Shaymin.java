@@ -37,10 +37,11 @@ public class Shaymin extends Adventurer{
 
   /*Deal 2-7 damage to opponent, restores 2 caffeine*/
   public String attack(Adventurer other){
-    other.changeATKstatus(-2);
     if(useSpecial(2)){
-      return this + " threw petals in the opponent's eyes, reducing the damage of their next attack by 2";
+      other.changeATKstatus(-2);
+      return this + " threw petals in " + other + "'s " + "eyes, reducing the damage of their next attack by 2";
     }else{
+      restoreSpecial(7);
       return this + " did not have enough petals to throw. Instead gathered 7 petals.";
     }
   }
@@ -49,15 +50,12 @@ public class Shaymin extends Adventurer{
   *Reduces caffeine by 8.
   */
   public String specialAttack(Adventurer other){
-    if(getSpecial() >= 8){
-      setSpecial(getSpecial()-8);
-      int damage = (int)(Math.random()*5+Math.random()*5)+3;
-      other.applyDamage(damage);
-      return this + " used their "+
-      " skills to hack the matrix. "+
-      " This glitched out "+other+" dealing "+ damage +" points of damage.";
+    if(useSpecial(15)){
+      changeATKstatus(getFriends(), 3);
+      return this + " fed strengthening petals to all allies, increasing their damage by "+ 3;
     }else{
-      return "Not enough caffeine to use the ultimate code. Instead "+attack(other);
+      restoreSpecial(7);
+      return "Not enough petals to feed to allies. Instead gathered 7 petals";
     }
 
   }
