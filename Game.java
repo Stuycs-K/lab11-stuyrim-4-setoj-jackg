@@ -12,7 +12,7 @@ public class Game{
 
   public static void test(){
     Text.clear();
-    TextBox(2, 2, 2, 4, "12345678");
+    TextBox(2, 2, 2, 4, "123456789");
   }
   //Display the borders of your screen that will not change.
   //Do not write over the blank areas where text will appear or parties will appear.
@@ -112,11 +112,12 @@ public class Game{
     * ***THIS ROW INTENTIONALLY LEFT BLANK***
     */
     public static void drawParty(ArrayList<Adventurer> party,int startRow){
+      for(int i = 0; i < party.size(); i++){
+        TextBox(startRow, 2 + WIDTH * (i) / party.size(), 1 + WIDTH * (i + 1) / party.size(), 1, party.get(i).getName());
+        TextBox(startRow + 1, 2 + WIDTH * (i) / party.size(), 1 + WIDTH * (i + 1) / party.size(), 1, "HP: " + party.get(i).getHP());
+       TextBox(startRow + 2, 2 + WIDTH * (i) / party.size(), 1 + WIDTH * (i + 1) / party.size(), 1, party.get(i).getSpecialName() + ": " + party.get(i).getSpecial());
 
-      /*>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>*/
-      //YOUR CODE HERE
-      /*<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<*/
-    }
+    }}
 
 
   //Use this to create a colorized number string based on the % compared to the max value.
@@ -175,16 +176,18 @@ public class Game{
     //If only 1 enemy is added it should be the boss class.
     //start with 1 boss and modify the code to allow 2-3 adventurers later.
     ArrayList<Adventurer>enemies = new ArrayList<Adventurer>();
-    /*>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>*/
-    //YOUR CODE HERE
-    /*<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<*/
-
+    enemies.add(createRandomAdventurer());
+    enemies.add(createRandomAdventurer());
+    enemies.add(createRandomAdventurer());
+    drawParty(enemies,2);
     //Adventurers you control:
     //Make an ArrayList of Adventurers and add 2-4 Adventurers to it.
     ArrayList<Adventurer> party = new ArrayList<>();
-    /*>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>*/
-    //YOUR CODE HERE
-    /*<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<*/
+    //V basic party
+    party.add(new Diglett());
+    party.add(new CodeWarrior());
+    party.add(new Shaymin());
+    //Note to self: This party system and other party system is EXTREMELY scuffed
 
     boolean partyTurn = true;
     int whichPlayer = 0;
