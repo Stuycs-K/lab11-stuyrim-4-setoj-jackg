@@ -12,7 +12,11 @@ public class Game{
 
   public static void test(){
     Text.clear();
+    drawBackground();
     TextBox(2, 2, 2, 4, "123456789");
+    drawText("1234567891011121314151617181920212223242526272829303132333435363738394041424344454647484965012345678910111213141516171819202122232425262728293031323334353637383940414243444546474849650", 10, 10);
+    Text.go(31,0);
+
   }
   //Display the borders of your screen that will not change.
   //Do not write over the blank areas where text will appear or parties will appear.
@@ -46,11 +50,18 @@ public class Game{
     }
     else {
       Text.go(startRow, startCol);
-      System.out.print(s.substring(0, startCol + s.length() % WIDTH));
-      for (int i = 0; i < (s.length() - s.length() % WIDTH) / WIDTH; i++){
+      System.out.print(s.substring(0, WIDTH - startCol));
+      System.out.print("\n");
+      for (int i = 0; i < (startCol + s.length()) / WIDTH; i++){
         if (startCol + 1 + i < HEIGHT){
-          Text.go(startRow, startCol + 1 + i);
-          System.out.print(s.substring(s.length() % WIDTH + i * WIDTH));
+          Text.go(startRow + i + 1, 2);
+          if (s.substring(WIDTH - startCol + WIDTH * i).length() < WIDTH) {
+            System.out.print(s.substring(WIDTH - startCol + WIDTH * i));
+          }
+          else {
+            System.out.print(s.substring(WIDTH - startCol + WIDTH * i, WIDTH - startCol + WIDTH * (i + 1) - 2));
+          }
+          System.out.print("\n");
         }
 
       }
