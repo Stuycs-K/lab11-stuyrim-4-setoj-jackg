@@ -14,7 +14,7 @@ public class Game{
     Text.clear();
     drawBackground();
     TextBox(2, 2, 2, 4, "123456789");
-    drawText("12345678910111213141516171819202122232425262728293031323334353637383940414243444546474849650", 10, 10);
+    drawText("1234567891011121314151617181920212223242526272829303132333435363738394041424344454647484965012345678910111213141516171819202122232425262728293031323334353637383940414243444546474849650", 10, 10);
     Text.go(31,0);
 
   }
@@ -59,7 +59,7 @@ public class Game{
             System.out.print(s.substring(WIDTH - startCol + WIDTH * i));
           }
           else {
-            System.out.print(s.substring(WIDTH - startCol + WIDTH * i, WIDTH - startCol + WIDTH * (i + 1)));
+            System.out.print(s.substring(WIDTH - startCol + WIDTH * i, WIDTH - startCol + WIDTH * (i + 1) - 2));
           }
           System.out.print("\n");
         }
