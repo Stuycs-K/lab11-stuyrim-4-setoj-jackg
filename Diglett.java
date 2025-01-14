@@ -1,6 +1,6 @@
-public class Diglett extends Adventurer{
+ public class Diglett extends Adventurer{
     int depth, depthMax;
-    
+
     /*the other constructors ultimately call the constructor
     *with all parameters.*/
     public Diglett(String name, int hp){
@@ -8,37 +8,35 @@ public class Diglett extends Adventurer{
       depthMax = 100;
       depth = 10; //start 10 depth
     }
-  
-  
+
+
     public Diglett(String name){
       this(name,30); //start 30 hp by default
     }
-  
+
     public Diglett(){
       this("Diggy");
     }
-  
+
     /*The next 8 methods are all required because they are abstract:*/
     public String getSpecialName(){
       return "depth";
     }
-  
+
     public int getSpecial(){
       return depth;
     }
-  
+
     public void setSpecial(int n){
         //note to self: this can go over limit (irrelevant to diglett but might be relevant for shaymin)
       depth = n;
     }
-  
+
     public int getSpecialMax(){
       return depthMax;
     }
-    public String toStringDebug(){
-        return "Digglett " + getName() + ": " + getSpecialDebug() + ", " + getHPDebug();
-    }
-  
+
+
     /*not done */
     /*Deal 2-7 damage to opponent, restores 2 caffeine*/
     public String attack(Adventurer other){
@@ -50,7 +48,7 @@ public class Diglett extends Adventurer{
         restoreSpecial(10);
         return this + " dug into the ground, restoring 10 depth!";
     }
-  
+
     /*AOE damage to all enemies
     */
     public String specialAttack(Adventurer other){
@@ -61,7 +59,7 @@ public class Diglett extends Adventurer{
         }else{
             return "Not enough depth to burst out and attack. Instead "+attack( other);
         }
-  
+
     }
 
     /*Increases hp of all allies by 2 */
@@ -74,11 +72,10 @@ public class Diglett extends Adventurer{
             for(Adventurer friend: getFriends()){
                 friend.setmaxHP(friend.getmaxHP() + 2);
             }
-            
+
             return this + " stabilized the earth, increasing the max HP of all allies by 2";
           }else{
             return "Not enough depth to stabilize the earth. Instead "+attack();
           }
     }
   }
-  

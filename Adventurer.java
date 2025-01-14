@@ -18,13 +18,14 @@ public abstract class Adventurer{
   public ArrayList<Adventurer> getEnemies(){
     return enemies;
   }
-  public void setFriends(ArrayList<Adventurer> friends){
+  public void setFriends(ArrayList<Adventurer> friends){//Creates a party of friends
     this.friends = friends;
   }
 
-  public void setEnemies(ArrayList<Adventurer> enemies){
+  public void setEnemies(ArrayList<Adventurer> enemies){ //
     this.enemies = enemies;
   }
+
 
   public ArrayList<Adventurer> getFriends(){
     return friends;
@@ -123,7 +124,7 @@ public abstract class Adventurer{
   public Adventurer(String name){
     this(name, 10);
   }
-  
+
   public Adventurer(String name, int hp){
     this.name = name;
     this.HP = hp;
@@ -132,6 +133,25 @@ public abstract class Adventurer{
     this.friends = new ArrayList<Adventurer>();
     this.ATKstatus = 0;
   }
+
+  public Adventurer createRandomAdventurer(){//also deals with parties
+    int adventurerNumber = (int) (Math.random() * 3); //excludes boss
+    Adventurer newAven = null;
+    if(adventurerNumber == 0){
+      newAven = new CodeWarrior();
+    }else if(adventurerNumber == 1){
+      newAven=  new Shaymin();
+    }else if(adventurerNumber == 2){
+      newAven = new Diglett();
+    }
+    System.out.println("something went wrong");
+    this.addFriend(newAven);
+    newAven.setFriends(this.friends);
+    newAven.setEnemies(this.enemies);
+    this.getEnemies().get(1).addEnemy(newAven); //adds this enemy to the other side's enemies
+    return newAven;
+  }
+
 
   public void changeATKstatus(int change){
     ATKstatus += change;
@@ -169,7 +189,7 @@ public abstract class Adventurer{
   public int getmaxHP(){
     return maxHP;
   }
-  
+
   public void restoreHP(int amt){
     if(getHP() + amt >=  getmaxHP()){
       setHP(getmaxHP());
@@ -183,7 +203,7 @@ public abstract class Adventurer{
   }
 
   public String toStringDebug(){
-    return getName() + ": " + getSpecialDebug() + ", " + getHPDebug() + ", " + getATKstatusdebug();
+    return getName() + ": " + getSpecialDebug() + ", " + getHPDebug() + ", " + getATKstatusdebug() + " Enemies : " + getEnemies() + ", Friends " + getFriends() ;
   }
 
   public String getSpecialDebug(){
