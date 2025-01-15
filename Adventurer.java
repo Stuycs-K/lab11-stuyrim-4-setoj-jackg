@@ -56,6 +56,16 @@ public abstract class Adventurer{
     return newAven;
   }
 
+    public static void setEneFriends(ArrayList<Adventurer> friends, ArrayList<Adventurer> enemies){
+      for(Adventurer enemy : enemies){
+        enemy.setFriends(enemies);
+        enemy.setEnemies(friends);
+      }
+      for(Adventurer friend : friends){
+        friend.setFriends(friends);
+        friend.setEnemies(enemies);
+      }
+    }
 
   public void addToTeam(Adventurer newTeammate){
     this.addFriend(newTeammate);
