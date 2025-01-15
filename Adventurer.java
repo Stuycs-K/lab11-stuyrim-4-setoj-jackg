@@ -26,9 +26,39 @@ public abstract class Adventurer{
     this.enemies = enemies;
   }
 
-
   public ArrayList<Adventurer> getFriends(){
     return friends;
+  }
+  public Adventurer createRandomAdventurer(){//does not deal with parties
+    int adventurerNumber = (int) (Math.random() * 3); //excludes boss
+    Adventurer newAven = null;
+    if(adventurerNumber == 0){
+      newAven = new CodeWarrior();
+    }else if(adventurerNumber == 1){
+      newAven=  new Shaymin();
+    }else if(adventurerNumber == 2){
+      newAven = new Diglett();
+    }
+    return newAven;
+  }
+
+  public Adventurer createSummon(){
+    int adventurerNumber = (int) (Math.random() * 3); //excludes boss
+    Adventurer newAven = null;
+    if(adventurerNumber == 0){
+      newAven = new CodeWarrior("Evil CodeWarrior");
+    }else if(adventurerNumber == 1){
+      newAven=  new Shaymin("Evil Hedgehog");
+    }else if(adventurerNumber == 2){
+      newAven = new Diglett("Evil Diglett");
+    }
+    return newAven;
+  }
+
+
+  public void addToTeam(Adventurer newTeammate){
+    this.addFriend(newTeammate);
+    this.getEnemies().get(0).addEnemy(newTeammate);
   }
 
   //Abstract methods are meant to be implemented in child classes.
@@ -132,24 +162,6 @@ public abstract class Adventurer{
     this.enemies = new ArrayList<Adventurer>();
     this.friends = new ArrayList<Adventurer>();
     this.ATKstatus = 0;
-  }
-
-  public Adventurer createRandomAdventurer(){//also deals with parties
-    int adventurerNumber = (int) (Math.random() * 3); //excludes boss
-    Adventurer newAven = null;
-    if(adventurerNumber == 0){
-      newAven = new CodeWarrior();
-    }else if(adventurerNumber == 1){
-      newAven=  new Shaymin();
-    }else if(adventurerNumber == 2){
-      newAven = new Diglett();
-    }
-    System.out.println("something went wrong");
-    this.addFriend(newAven);
-    newAven.setFriends(this.friends);
-    newAven.setEnemies(this.enemies);
-    this.getEnemies().get(1).addEnemy(newAven); //adds this enemy to the other side's enemies
-    return newAven;
   }
 
 
