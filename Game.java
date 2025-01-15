@@ -14,7 +14,9 @@ public class Game{
     Text.clear();
     drawBackground();
     TextBox(2, 2, 2, 4, "123456789");
-    drawText("1234567891011121314151617181920212223242526272829303132333435363738394041424344454647484965012345678910111213141516171819202122232425262728293031323334353637383940414243444546474849650", 10, 10);
+    drawText("12345678910111213141516171819202122232425262728293031323334353637383940414243444546474849650123456789101112131415161718192021222324252627282930313233343536373839404142434445464748496501234567891011121314151617181920212223242526272829303132333435363738394041424344454647484965012345678910111213141516171819202122232425262728293031323334353637383940414243444546474849650", 10, 10);
+
+    TextBox(10, 10, 10, 10, "ddddddddddddddddddd");
     Text.go(31,0);
 
   }
@@ -82,11 +84,20 @@ public class Game{
   */
   public static void TextBox(int row, int col, int width, int height, String text){
     int placed = 0;
+    Text.go(row, col);
+    for (int i = 0; i < row; i++) {
+      Text.go(row + i, col);
+      for (int n = 0; n < col; n ++) {
+        System.out.print(" ");
+      }
+      System.out.print("\n");
+    }
     while(placed < text.length()){
       Text.go(row, col);
       if(text.length() - placed > width){
-        System.out.println(text.substring(placed, placed + width));
+        System.out.print(text.substring(placed, placed + width));
         placed += width;
+        System.out.print("\n");
         row++;
       }else{
         System.out.println(text.substring(placed));
