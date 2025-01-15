@@ -68,8 +68,7 @@ public abstract class Adventurer{
     }
 
   public void addToTeam(Adventurer newTeammate){
-    this.addFriend(newTeammate);
-    this.getEnemies().get(0).addEnemy(newTeammate);
+    this.addFriend(newTeammate); //ONLY DO ONCE BC this.friends is set as equal to Enemies.enemies
   }
 
   //Abstract methods are meant to be implemented in child classes.
@@ -226,7 +225,7 @@ public abstract class Adventurer{
   }
 
   public String toStringDebug(){
-    return getName() + ": " + getSpecialDebug() + ", " + getHPDebug() + ", " + getATKstatusdebug() + " Enemies : " + getEnemies() + ", Friends " + getFriends() ;
+    return getName() + ": " + getSpecialDebug() + ", " + getHPDebug() + ", " + getATKstatusdebug() + ", Enemies : " + getEnemies() + ", Friends " + getFriends() ;
   }
 
   public String getSpecialDebug(){

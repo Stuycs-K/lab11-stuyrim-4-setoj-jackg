@@ -27,5 +27,5 @@ Very definitely balanced classes
 |----|----|---|---|
 |Special Trait | Depth (start w/ 10, no max) | Petals, (start w/ 10, no max)| Pokeballs, starts with 1, max is 10|
 | Normal Attack | Dig: Digs into the ground, restoring 10 Depth! (no damage) | Debuffs selected enemy, reducing their attack power (no damage)| Reaches into pouch to retrieve 1-2 pokeballs, dealing no damage|
-| Support | Increases max health by 2hp for allies | Heals ally for 4hp and regains 5 petals        | Throws 1-3 pokeballs, summoning 1-3 enemies to their side |
+| Support | Increases max health by 2hp for allies | Heals ally for 4hp and regains 5 petals        | Summons 1-2 enemies to their side, consuming two pokeballs for each enemy summoned|
 | Special Attack | High AOE damage to all enemies. Consumes 25 depth|Uses 15 petals to buff damage of all allies| Throws all pokeballs at target (Min. 5 pokeballs). Has a chance (depending on how many poke-balls thrown) to completely defeat target. |
