@@ -203,15 +203,7 @@ public class Game{
     party.add(new CodeWarrior());
     party.add(new Shaymin());
     //Note to self: This party system and other party system is EXTREMELY scuffed
-
-    for(Adventurer aven: party){
-      aven.setFriends(party);
-      aven.setEnemies(enemies);
-    }
-    for(Adventurer ene: enemies){
-      ene.setFriends(enemies); //enemies are friends with enemies and enemies to the party
-      ene.setEnemies(party);
-    }
+    Adventurer.setEneFriends(party, enemies);
 
     boolean partyTurn = true;
     int whichPlayer = 0;

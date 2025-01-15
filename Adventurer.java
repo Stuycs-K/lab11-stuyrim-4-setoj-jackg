@@ -7,6 +7,7 @@ public abstract class Adventurer{
   private ArrayList<Adventurer> friends;
   private ArrayList<Adventurer> enemies;
   private int ATKstatus;
+  public boolean stunned;
 
   public void addEnemy(Adventurer enemy){
     enemies.add(enemy);
@@ -26,7 +27,7 @@ public abstract class Adventurer{
     this.enemies = enemies;
   }
 
-  public void setEneFriends(ArrayList<Adventurer> friends, ArrayList<Adventurer> enemies){
+  public static void setEneFriends(ArrayList<Adventurer> friends, ArrayList<Adventurer> enemies){
     for(Adventurer enemy : enemies){
       enemy.setFriends(enemies);
       enemy.setEnemies(friends);
