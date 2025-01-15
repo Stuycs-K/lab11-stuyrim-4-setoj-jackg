@@ -7,6 +7,7 @@ public abstract class Adventurer{
   private ArrayList<Adventurer> friends;
   private ArrayList<Adventurer> enemies;
   private int ATKstatus;
+  public boolean stunned;
 
   public void addEnemy(Adventurer enemy){
     enemies.add(enemy);
