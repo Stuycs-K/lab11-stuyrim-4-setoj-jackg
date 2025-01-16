@@ -57,6 +57,7 @@ public class Boss extends Adventurer{
   }
   /*spawns new adven ally*/
   public String support(Adventurer other){
+
     if(getSpecial() < 2){
       return attack(other);
     }

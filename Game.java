@@ -247,7 +247,9 @@ public class Game{
 
     while(! (input.equalsIgnoreCase("q") || input.equalsIgnoreCase("quit"))){
       //Read user input
+      Text.go(HEIGHT - 2, 2);
       System.out.println(preprompt);
+      Text.go(HEIGHT - 1, 2);
       input = userInput(in);
 
       //example debug statment
