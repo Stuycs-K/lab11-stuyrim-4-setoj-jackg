@@ -96,6 +96,7 @@ public class Game{
   *@param height the number of rows
   */
   public static void TextBox(int row, int col, int width, int height, String text){
+
     int placed = 0;
     Text.go(row, col);
     for (int i = 0; i < row; i++) {
@@ -181,7 +182,7 @@ public class Game{
     drawParty(party, 3);
 
     TextBox(14, 2, 100, 100, "The Enemies: ");
-    drawParty(enemies, 15);
+    drawParty(enemies, 15); //this is the scuffed part
     //draw enemy party
 
   }
@@ -243,35 +244,36 @@ public class Game{
     //Main loop
 
     //display this prompt at the start of the game.
-    String preprompt = "Enter command for "+party.get(whichPlayer)+": attack/special/quit";
+    String preprompt = "Enter command for "+party.get(whichPlayer)+": attack #/special #/ support #/quit";
 
     while(! (input.equalsIgnoreCase("q") || input.equalsIgnoreCase("quit"))){
       //Read user input
-      Text.go(HEIGHT - 2, 2);
+      Text.go(HEIGHT - 4, 2);
       System.out.println(preprompt);
-      Text.go(HEIGHT - 1, 2);
-      input = userInput(in);
+      Text.go(HEIGHT - 3, 2);
 
       //example debug statment
       // TextBox(24,2,80,78,"input: "+input+" partyTurn:"+partyTurn+ " whichPlayer="+whichPlayer+ " whichOpp="+whichOpponent );
 
       //display event based on last turn's input
       if(partyTurn){
+        input = userInput(in);
+        //  public static void TextBox(int row, int col, int width, int height, String text){
+
         //Process user input for the last Adventurer:
         if(input.startsWith("attack") || input.startsWith("a")){
-          int choice = Integer.parseInt(input.substring(input.length() - 1)); //will not work on multi-digit input.
+          int choice = Integer.parseInt(input.substring(input.length() - 1)) - 1; //will not work on multi-digit input.
+          TextBox(HEIGHT - 2,2, WIDTH - 2, 2, party.get(whichPlayer).attack(enemies.get(choice)));
         }
         else if(input.startsWith("special") || input.startsWith("sp")){
-          /*>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>*/
-          //YOUR CODE HERE
-          /*<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<*/
+          int choice = Integer.parseInt(input.substring(input.length() - 1)) - 1; //will not work on multi-digit input.
+          System.out.println(party.get(whichPlayer).specialAttack(enemies.get(choice)));
+
         }
         else if(input.startsWith("su ") || input.startsWith("support ")){
-          //"support 0" or "su 0" or "su 2" etc.
-          //assume the value that follows su  is an integer.
-          /*>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>*/
-          //YOUR CODE HERE
-          /*<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<*/
+          int choice = Integer.parseInt(input.substring(input.length() - 1)) - 1; //will not work on multi-digit input.
+          System.out.println(party.get(whichPlayer).support(party.get(choice)));
+
         }
 
         //You should decide when you want to re-ask for user input
