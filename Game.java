@@ -257,14 +257,11 @@ public class Game{
 
       //display event based on last turn's input
       if(partyTurn){
-
         //Process user input for the last Adventurer:
-        if(input.equals("attack") || input.equals("a")){
-          /*>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>*/
-          //YOUR CODE HERE
-          /*<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<*/
+        if(input.startsWith("attack") || input.startsWith("a")){
+          int choice = Integer.parseInt(input.substring(input.length() - 1)); //will not work on multi-digit input.
         }
-        else if(input.equals("special") || input.equals("sp")){
+        else if(input.startsWith("special") || input.startsWith("sp")){
           /*>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>*/
           //YOUR CODE HERE
           /*<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<*/
