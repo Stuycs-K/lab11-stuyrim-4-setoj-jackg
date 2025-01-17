@@ -4,7 +4,7 @@ public class Game{
   private static final int HEIGHT = 30;
   private static final int BORDER_COLOR = Text.BLACK;
   private static final int BORDER_BACKGROUND = Text.WHITE + Text.BACKGROUND;
-  private static final int LEFT_SIZE = 55;
+  private static final int LEFT_SIZE = 56;
   public static void main(String[] args) {
     Text.clear();
     run();
@@ -140,11 +140,11 @@ public class Game{
     * ***THIS ROW INTENTIONALLY LEFT BLANK***
     */
     public static void drawParty(ArrayList<Adventurer> party,int startRow){
-      int printableWidth = LEFT_SIZE - 2;
+      double printableWidth = LEFT_SIZE - 2;
       for(int i = 0; i < party.size(); i++){
-        TextBox(startRow, 2 + printableWidth * (i) / party.size(),  printableWidth * (i + 1) / party.size(), 1, party.get(i).getName());
-        TextBox(startRow + 1, 2 + printableWidth * (i) / party.size(), printableWidth * (i + 1) / party.size(), 1, "HP: " + party.get(i).getHP());
-       TextBox(startRow + 2, 2 + printableWidth * (i) / party.size(),  printableWidth * (i + 1) / party.size(), 1, party.get(i).getSpecialName() + ": " + party.get(i).getSpecial());
+        TextBox( startRow,(int)  ( 2 + printableWidth * (i) / party.size()), (int) ( printableWidth / party.size()), 1, party.get(i).getName());
+        TextBox(startRow + 1,(int)  ( 2 + printableWidth * (i) / party.size()),(int) ( printableWidth / party.size()), 1, "HP: " + party.get(i).getHP());
+       TextBox(startRow + 2, (int)  (2 + printableWidth * (i) / party.size()), (int)  (printableWidth / party.size()), 1, party.get(i).getSpecialName() + ": " + party.get(i).getSpecial());
     }
   
   }
@@ -175,8 +175,8 @@ public class Game{
     //draw player party
     drawParty(party, 3);
 
-    TextBox(14, 2, 56, 1, "The Enemies: ");
-    drawParty(enemies, 15); //this is the scuffed part
+    TextBox(14, 2, LEFT_SIZE -2, 1, "The Enemies: ");
+    drawParty(enemies, 15); 
     //draw enemy party
 
   }
