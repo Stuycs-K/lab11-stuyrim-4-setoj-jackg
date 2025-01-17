@@ -24,27 +24,30 @@ public class Game{
   //Do not write over the blank areas where text will appear or parties will appear.
   public static void drawBackground(){
         Text.go(0, 1);
-        System.out.print(Text.colorize("@".repeat(WIDTH), 100));
+        System.out.print(Text.colorize("█".repeat(WIDTH), 100));
         for (int i = 0; i < HEIGHT; i++){
             Text.go(i, 0);
-            System.out.print(Text.colorize("@",100));
+            System.out.print(Text.colorize("█",100));
         }
         for (int i = 0; i < HEIGHT; i++){
             Text.go(i, 80);
-            System.out.print(Text.colorize("@",100));
+            System.out.print(Text.colorize("█",100));
         }
 
         Text.go(30, 1);
-        System.out.print(Text.colorize("@".repeat(WIDTH), 100));
-        
+        System.out.print(Text.colorize("█".repeat(WIDTH), 100));
+        Text.go(25, 1);
+        System.out.print(Text.colorize("█".repeat(WIDTH), 100));
+        Text.go(13, 1);
+        System.out.print(Text.colorize("█".repeat(WIDTH - 24), 100));
         Text.go(16, 2);
         System.out.print(Text.colorize("^".repeat(23), 100));
 
         Text.go(15, 2);
         System.out.print(Text.colorize("-".repeat(23), 100));
-        for (int i = 0; i < HEIGHT - 2; i++){
+        for (int i = 0; i < HEIGHT - 6; i++){
             Text.go(i+2, 56);
-            System.out.print(Text.colorize("|",3));
+            System.out.print(Text.colorize("█",3));
         }
 
   }
@@ -146,7 +149,7 @@ public class Game{
         TextBox(startRow + 1,(int)  ( 2 + printableWidth * (i) / party.size()),(int) ( printableWidth / party.size()), 1, "HP: " + party.get(i).getHP());
        TextBox(startRow + 2, (int)  (2 + printableWidth * (i) / party.size()), (int)  (printableWidth / party.size()), 1, party.get(i).getSpecialName() + ": " + party.get(i).getSpecial());
     }
-  
+
   }
 
 
@@ -176,7 +179,7 @@ public class Game{
     drawParty(party, 3);
 
     TextBox(14, 2, LEFT_SIZE -2, 1, "The Enemies: ");
-    drawParty(enemies, 15); 
+    drawParty(enemies, 15);
     //draw enemy party
 
   }
