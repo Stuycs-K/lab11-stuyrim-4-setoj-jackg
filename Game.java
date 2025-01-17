@@ -4,16 +4,16 @@ public class Game{
   private static final int HEIGHT = 30;
   private static final int BORDER_COLOR = Text.BLACK;
   private static final int BORDER_BACKGROUND = Text.WHITE + Text.BACKGROUND;
-
+  private static final int LEFT_SIZE = 55;
   public static void main(String[] args) {
+    Text.clear();
     run();
     // test();
   }
 
   public static void test(){
-    Text.clear();
     drawBackground();
-    TextBox(2, 2, 2, 4, "123456789");
+    // TextBox(2, 2, 2, 4, "123456789");
     //drawText("12345678910111213141516171819202122232425262728293031323334353637383940414243444546474849650123456789101112131415161718192021222324252627282930313233343536373839404142434445464748496501234567891011121314151617181920212223242526272829303132333435363738394041424344454647484965012345678910111213141516171819202122232425262728293031323334353637383940414243444546474849650", 10, 10);
 
     //TextBox(10, 10, 10, 10, "ddddddddddddddddddd");
@@ -23,10 +23,8 @@ public class Game{
   //Display the borders of your screen that will not change.
   //Do not write over the blank areas where text will appear or parties will appear.
   public static void drawBackground(){
-        for (int i = 0; i < WIDTH; i++){
-            Text.go(0, i);
-            System.out.print(Text.colorize("@",100));
-        }
+        Text.go(0, 1);
+        System.out.print(Text.colorize("@".repeat(WIDTH), 100));
         for (int i = 0; i < HEIGHT; i++){
             Text.go(i, 0);
             System.out.print(Text.colorize("@",100));
@@ -35,18 +33,15 @@ public class Game{
             Text.go(i, 80);
             System.out.print(Text.colorize("@",100));
         }
-        for (int i = 0; i < WIDTH + 1; i++){
-            Text.go(30, i);
-            System.out.print(Text.colorize("@",100));
-        }
-        for (int i = 0; i < WIDTH - 25; i++){
-            Text.go(16, i + 2);
-            System.out.print(Text.colorize("^",3));
-        }
-        for (int i = 0; i < WIDTH - 25; i++){
-            Text.go(15, i + 2);
-            System.out.print(Text.colorize("_",3));
-        }
+
+        Text.go(30, 1);
+        System.out.print(Text.colorize("@".repeat(WIDTH), 100));
+        
+        Text.go(16, 2);
+        System.out.print(Text.colorize("^".repeat(23), 100));
+
+        Text.go(15, 2);
+        System.out.print(Text.colorize("-".repeat(23), 100));
         for (int i = 0; i < HEIGHT - 2; i++){
             Text.go(i+2, 56);
             System.out.print(Text.colorize("|",3));
@@ -96,25 +91,22 @@ public class Game{
   *@param height the number of rows
   */
   public static void TextBox(int row, int col, int width, int height, String text){
-
     int placed = 0;
     Text.go(row, col);
-    for (int i = 0; i < row; i++) {
+    for (int i = 0; i < height; i++) {
       Text.go(row + i, col);
-      for (int n = 0; n < col; n ++) {
-        System.out.print(" ");
-      }
-      System.out.print("\n");
+      System.out.print(Text.colorize(" ".repeat(width), Text.BACKGROUND + Text.RED));
     }
+
     while(placed < text.length()){
       Text.go(row, col);
       if(text.length() - placed > width){
-        System.out.print(text.substring(placed, placed + width));
+        System.out.print(Text.colorize(text.substring(placed, placed + width),Text.BACKGROUND + Text.GREEN) );
         placed += width;
-        System.out.print("\n");
+        // System.out.print("\n");
         row++;
       }else{
-        System.out.println(text.substring(placed));
+        System.out.println(Text.colorize( text.substring(placed), Text.BACKGROUND + Text.GREEN ));
         placed = text.length();
       }
     }
@@ -148,12 +140,14 @@ public class Game{
     * ***THIS ROW INTENTIONALLY LEFT BLANK***
     */
     public static void drawParty(ArrayList<Adventurer> party,int startRow){
+      int printableWidth = LEFT_SIZE - 2;
       for(int i = 0; i < party.size(); i++){
-        TextBox(startRow, 2 + WIDTH * (i) / party.size(), 1 + WIDTH * (i + 1) / party.size(), 1, party.get(i).getName());
-        TextBox(startRow + 1, 2 + WIDTH * (i) / party.size(), 1 + WIDTH * (i + 1) / party.size(), 1, "HP: " + party.get(i).getHP());
-       TextBox(startRow + 2, 2 + WIDTH * (i) / party.size(), 1 + WIDTH * (i + 1) / party.size(), 1, party.get(i).getSpecialName() + ": " + party.get(i).getSpecial());
-
-    }}
+        TextBox(startRow, 2 + printableWidth * (i) / party.size(),  printableWidth * (i + 1) / party.size(), 1, party.get(i).getName());
+        TextBox(startRow + 1, 2 + printableWidth * (i) / party.size(), printableWidth * (i + 1) / party.size(), 1, "HP: " + party.get(i).getHP());
+       TextBox(startRow + 2, 2 + printableWidth * (i) / party.size(),  printableWidth * (i + 1) / party.size(), 1, party.get(i).getSpecialName() + ": " + party.get(i).getSpecial());
+    }
+  
+  }
 
 
   //Use this to create a colorized number string based on the % compared to the max value.
@@ -176,12 +170,12 @@ public class Game{
   public static void drawScreen(ArrayList<Adventurer> party, ArrayList<Adventurer>enemies){
 
     drawBackground();
-    TextBox(2, 2, 100, 100, "Your Party: ");
+    TextBox(2, 2, LEFT_SIZE -2, 1, "Your Party: ");
 
     //draw player party
     drawParty(party, 3);
 
-    TextBox(14, 2, 100, 100, "The Enemies: ");
+    TextBox(14, 2, 56, 1, "The Enemies: ");
     drawParty(enemies, 15); //this is the scuffed part
     //draw enemy party
 
