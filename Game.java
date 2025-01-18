@@ -283,7 +283,7 @@ public class Game{
           //This is after the player's turn, and allows the user to see the enemy turn
           //Decide where to draw the following prompt:
           prompt = "press enter to see monster's turn";
-          TextBox(HEIGHT - 1,2, WIDTH - 2, 2, prompt);
+          TextBox(HEIGHT - 4,2, WIDTH - 2, 2, prompt);
           partyTurn = false;
           whichOpponent = 0;
         }
@@ -300,19 +300,19 @@ public class Game{
 
         //Decide where to draw the following prompt:
         String prompt = "press enter to see enemy " +  enemies.get(whichOpponent) + "'s turn";
-        TextBox(HEIGHT - 1,2, WIDTH - 2, 2, prompt);
+        TextBox(HEIGHT - 4,2, LEFT_SIZE - 2, 1, prompt);
         input = userInput(in);
         if(choices.get(actionChoice).equals("atk")){
           int target  = (int) (Math.random() * party.size());
-          TextBox(HEIGHT - 1,2, WIDTH - 2, 2, enemies.get(whichOpponent).attack(party.get(target)));
+          TextBox(HEIGHT - 1,2, LEFT_SIZE - 2, 2, "enemy " + enemies.get(whichOpponent).attack(party.get(target)));
         }
         if(choices.get(actionChoice).equals("su")){
           int target  = (int) (Math.random() * party.size());
-          TextBox(HEIGHT - 1,2, WIDTH - 2, 2, enemies.get(whichOpponent).support(enemies.get(target)));
+          TextBox(HEIGHT - 1,2, LEFT_SIZE - 2, 2, "enemy " +enemies.get(whichOpponent).support(enemies.get(target)));
         }
         if(choices.get(actionChoice).equals("sp")){
           int target  = (int) (Math.random() * party.size());
-          TextBox(HEIGHT - 1,2, WIDTH - 2, 2, enemies.get(whichOpponent).specialAttack(party.get(target)));
+          TextBox(HEIGHT - 1,2, LEFT_SIZE - 2, 2,"enemy " + enemies.get(whichOpponent).specialAttack(party.get(target)));
         }
     
         whichOpponent++;
