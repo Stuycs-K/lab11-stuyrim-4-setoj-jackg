@@ -232,6 +232,7 @@ public class Game{
     int turn = 0;
     String input = "";//blank to get into the main loop.
     Scanner in = new Scanner(System.in);
+    int dead = 0;
     //Draw the window border
 
     //You can add parameters to draw screen!
@@ -245,14 +246,11 @@ public class Game{
     // System.out.println(preprompt);
 
     while(! (input.equalsIgnoreCase("q") || input.equalsIgnoreCase("quit"))){
-      //Read user input
-
-
-      //example debug statment
-      // TextBox(24,2,80,78,"input: "+input+" partyTurn:"+partyTurn+ " whichPlayer="+whichPlayer+ " whichOpp="+whichOpponent );
-
-      //display event based on last turn's input
+     
       if(partyTurn){
+
+        if(!party.get(whichPlayer).isDead()){
+        try{
         Text.go(HEIGHT - 4,2);
         String prompt = "Enter command for "+party.get(whichPlayer)+": attack/special/quit ";
         System.out.println(prompt);
@@ -267,12 +265,17 @@ public class Game{
         }
         else if(input.startsWith("special") || input.startsWith("sp")){
           int choice = Integer.parseInt(input.substring(input.length() - 1)) - 1; //will not work on multi-digit input.
-          TextBox(HEIGHT - 1,2, WIDTH - 2, 2, party.get(whichPlayer).specialAttack(enemies.get(choice)));        }
+          Text.go(HEIGHT - 4,2);}
         else if(input.startsWith("su ") || input.startsWith("support ")){
           int choice = Integer.parseInt(input.substring(input.length() - 1)) - 1; //will not work on multi-digit input.
           TextBox(HEIGHT - 1,2, WIDTH - 2, 2, party.get(whichPlayer).support(party.get(choice)));
+        }}
+        catch(NumberFormatException e){
+          TextBox(HEIGHT - 4,2, WIDTH - 2, 2, "Invalid input. Make sure your input is in form 'command target' like su 1");
+          input = userInput(in);
+          continue;
         }
-
+      }
         //You should decide when you want to re-ask for user input
         //If no errors:
         whichPlayer++;
@@ -282,7 +285,7 @@ public class Game{
           //Decide where to draw the following prompt:
           //This is after the player's turn, and allows the user to see the enemy turn
           //Decide where to draw the following prompt:
-          prompt = "press enter to see monster's turn";
+          String prompt = "press enter to see monster's turn";
           TextBox(HEIGHT - 4,2, WIDTH - 2, 2, prompt);
           partyTurn = false;
           whichOpponent = 0;
@@ -326,16 +329,32 @@ public class Game{
         whichPlayer = 0;
         turn++;
         partyTurn=true;
-        //display this prompt before player's turn
-        // String prompt = "Enter command for "+party.get(whichPlayer)+": attack/special/quit";
       }
 
       //display the updated screen after input has been processed.
+      for(int i = 0; i < enemies.size(); i++){
+        if(enemies.get(i).getHP() <= 0){
+          enemies.remove(i);
+        }
+      }
+      for(int i = 0; i < party.size(); i++){
+        if(party.get(i).getHP() <= 0){
+          party.get(i).kill();
+          party.get(i).setHP(0);
+          dead++;
+        }
+      }
+      
+      if(enemies.size() == 0 || party.size() == dead){
+        drawScreen(party, enemies);
+        System.out.println("Game over. Press enter to quit");
+        String a = userInput(in);
+        break;
+      }
       drawScreen(party, enemies);
 
-
-    }//end of main game loop
-
+    }
+  
 
     //After quit reset things:
     quit();
