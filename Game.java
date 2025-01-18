@@ -212,13 +212,20 @@ public class Game{
     //Make an ArrayList of Adventurers and add 1-3 enemies to it.
     //If only 1 enemy is added it should be the boss class.
     //start with 1 boss and modify the code to allow 2-3 adventurers later.
+    int numEnemies = (int) (Math.random() * 3) + 1;
     ArrayList<Adventurer>enemies = new ArrayList<Adventurer>();
-    enemies.add(createRandomAdventurer());
-    enemies.add(createRandomAdventurer());
-    enemies.add(createRandomAdventurer());
+    if(numEnemies == 1){
+      enemies.add(new Boss());
+    }else{
+      for(int i = 0; i < numEnemies; i++){
+        enemies.add(createRandomAdventurer());
+
+      }
+    }
+
     //Adventurers you control:
     //Make an ArrayList of Adventurers and add 2-4 Adventurers to it.
-    //V basic party
+
     ArrayList<Adventurer> party = new ArrayList<Adventurer>();
     party.add(new Diglett());
     party.add(new CodeWarrior());
@@ -270,7 +277,7 @@ public class Game{
           int choice = Integer.parseInt(input.substring(input.length() - 1)) - 1; //will not work on multi-digit input.
           TextBox(HEIGHT - 1,2, WIDTH - 2, 2, party.get(whichPlayer).support(party.get(choice)));
         }}
-        catch(NumberFormatException e){
+        catch(NumberFormatException | IndexOutOfBoundsException e){
           TextBox(HEIGHT - 4,2, WIDTH - 2, 2, "Invalid input. Make sure your input is in form 'command target' like su 1");
           input = userInput(in);
           continue;
@@ -310,14 +317,14 @@ public class Game{
           TextBox(HEIGHT - 1,2, LEFT_SIZE - 2, 2, "enemy " + enemies.get(whichOpponent).attack(party.get(target)));
         }
         if(choices.get(actionChoice).equals("su")){
-          int target  = (int) (Math.random() * party.size());
+          int target  = (int) (Math.random() * enemies.size());
           TextBox(HEIGHT - 1,2, LEFT_SIZE - 2, 2, "enemy " +enemies.get(whichOpponent).support(enemies.get(target)));
         }
         if(choices.get(actionChoice).equals("sp")){
           int target  = (int) (Math.random() * party.size());
           TextBox(HEIGHT - 1,2, LEFT_SIZE - 2, 2,"enemy " + enemies.get(whichOpponent).specialAttack(party.get(target)));
         }
-    
+        drawScreen(party, enemies);
         whichOpponent++;
 
       }//end of one enemy.

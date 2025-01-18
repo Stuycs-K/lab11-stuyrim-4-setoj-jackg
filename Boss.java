@@ -1,6 +1,6 @@
 public class Boss extends Adventurer{
-  int pokeballs, pokeballsMax;
-
+  private int pokeballs, pokeballsMax;
+  private final int MAX_SUMMONS = 3;
   /*the other constructors ultimately call the constructor
   *with all parameters.*/
   public Boss(String name, int hp){
@@ -39,44 +39,47 @@ public class Boss extends Adventurer{
   public String attack(Adventurer other){
     int numTaken =  (int) (Math.random() * 3);
     restoreSpecial(numTaken);
-    return this + "grabbed" + numTaken + "poke-balls from their pouch.";
+    return this + " grabbed " + numTaken + " poke-balls from their pouch.";
   }
 
-  /*Deal 3-12 damage to opponent, only if caffeine is high enough.
-  *Reduces caffeine by 8.
+  /*Completely obliterates opponent.
   */
   public String specialAttack(Adventurer other){
-    if(useSpecial(15)){
-      changeATKstatus(getFriends(), 3);
-      return this + " fed strengthening petals to all allies, increasing their damage by "+ 3;
+    if(useSpecial(5)){
+      other.setHP(-1);
+      return this + " captured " + other + ", removing all of their hp" ;
     }else{
-      restoreSpecial(7);
-      return "Not enough petals to feed to allies. Instead gathered 7 petals";
+      return "Not enough pokeballs to capture. Instead " + attack(other);
     }
 
   }
+
+
   /*spawns new adven ally*/
   public String support(Adventurer other){
 
     if(getSpecial() < 2){
-      return attack(other);
+      return "Does not have enough pokeballs to spawn a pokemon. Instead " + attack(other);
     }
-    int addlToThrow = getSpecial() / 2;
-    if(addlToThrow > 1){ //max throw 2
-      addlToThrow = 1;
+
+    if(getFriends().size() > MAX_SUMMONS){
+      return this + " has already summoned the maximum amount of pokemon. Instead " + attack(other);
     }
-    useSpecial(2 * (1 + addlToThrow));
 
-    Adventurer toSpawn = createSummon();
-    addToTeam(toSpawn);
+    int toThrow = getSpecial() / 2;
+    if(toThrow > 2){ //max throw 2
+      toThrow = 2;
+    }
+    useSpecial(2 * (toThrow));
 
-    String ret = this + " threw a poke-ball, spawning " + ( 1 + addlToThrow) + " minions: " + toSpawn;
-    for(int i = 0; i < addlToThrow; i++){
-      toSpawn = createSummon();
+    String ret = this + " threw a poke-ball, spawning " + ( toThrow) + " minions: ";
+    
+    for(int i = 0; i < toThrow; i++){
+      Adventurer toSpawn = createSummon();
       addToTeam(toSpawn);
-      ret += " and " + toSpawn;
+      ret += toSpawn + " and ";
     }
-    return ret;
+    return ret.substring(ret.length() - 3);
   }
   /*Restores 6 special and 1 hp to self.*/
   public String support(){

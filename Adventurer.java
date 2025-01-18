@@ -7,15 +7,17 @@ public abstract class Adventurer{
   private ArrayList<Adventurer> friends;
   private ArrayList<Adventurer> enemies;
   private int ATKstatus;
-  public boolean stunned;
-
+  private boolean dead;
+  
   public void addEnemy(Adventurer enemy){
     enemies.add(enemy);
   }
   public void addFriend(Adventurer friend){
     friends.add(friend);
   }
-
+  public void kill(){
+    dead = true;
+  }
   public ArrayList<Adventurer> getEnemies(){
     return enemies;
   }
@@ -47,11 +49,11 @@ public abstract class Adventurer{
     int adventurerNumber = (int) (Math.random() * 3); //excludes boss
     Adventurer newAven = null;
     if(adventurerNumber == 0){
-      newAven = new CodeWarrior("Evil CodeWarrior");
+      newAven = new CodeWarrior("Evil CodeWarrior", 25);
     }else if(adventurerNumber == 1){
-      newAven=  new Shaymin("Evil Hedgehog");
+      newAven=  new Shaymin("Evil Hedgehog", 25);
     }else if(adventurerNumber == 2){
-      newAven = new Diglett("Evil Diglett");
+      newAven = new Diglett("Evil Diglett", 25);
     }
     return newAven;
   }
@@ -172,8 +174,11 @@ public abstract class Adventurer{
     this.enemies = new ArrayList<Adventurer>();
     this.friends = new ArrayList<Adventurer>();
     this.ATKstatus = 0;
+    this.dead = false;
   }
-
+  public boolean isDead(){
+    return dead;
+  }
 
   public void changeATKstatus(int change){
     ATKstatus += change;
