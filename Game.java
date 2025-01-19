@@ -23,7 +23,6 @@ public class Game{
   //Display the borders of your screen that will not change.
   //Do not write over the blank areas where text will appear or parties will appear.
   public static void drawBackground(){
-        TextBox(0, 0, WIDTH, HEIGHT, " ".repeat( WIDTH * HEIGHT));
 
         Text.go(0, 1);
         System.out.print(Text.colorize("█".repeat(WIDTH), 100));
@@ -172,7 +171,7 @@ public class Game{
   //Do not write over the blank areas where text will appear.
   //Place the cursor at the place where the user will by typing their input at the end of this method.
   public static void drawScreen(ArrayList<Adventurer> party, ArrayList<Adventurer>enemies, ArrayList<String> pastActions){
-
+    Text.clear();
     drawBackground();
     TextBox(2, 2, LEFT_SIZE -2, 1, "Your Party: ");
 
@@ -254,9 +253,7 @@ public class Game{
     //Main loop
 
     //display this prompt at the start of the game.
-    // Text.go(HEIGHT - 4, 2);
-    // String preprompt = "Enter command for "+party.get(whichPlayer)+": attack #/special #/ support #/quit";
-    // System.out.println(preprompt);
+
 
     while(! (input.equalsIgnoreCase("q") || input.equalsIgnoreCase("quit"))){
      
@@ -264,9 +261,8 @@ public class Game{
 
         if(!party.get(whichPlayer).isDead()){
         try{
-        Text.go(HEIGHT - 4,2);
         String prompt = "Enter command for "+party.get(whichPlayer)+": attack/special/quit ";
-        System.out.println(prompt);
+        TextBox(HEIGHT - 4, 2,  WIDTH - 2, 1, prompt);
         Text.go(HEIGHT - 2,2);
         input = userInput(in);
         //  public static void TextBox(int row, int col, int width, int height, String text){
@@ -330,6 +326,7 @@ public class Game{
         //Decide where to draw the following prompt:
         String prompt = "press enter to see enemy " +  enemies.get(whichOpponent) + "'s turn";
         TextBox(HEIGHT - 4,2, LEFT_SIZE - 2, 1, prompt);
+        Text.go(HEIGHT - 2, 1);
         input = userInput(in);
         if(choices.get(actionChoice).equals("atk")){
           int target  = (int) (Math.random() * party.size());
