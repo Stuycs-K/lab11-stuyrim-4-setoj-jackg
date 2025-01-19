@@ -23,6 +23,8 @@ public class Game{
   //Display the borders of your screen that will not change.
   //Do not write over the blank areas where text will appear or parties will appear.
   public static void drawBackground(){
+        TextBox(0, 0, WIDTH, HEIGHT, " ".repeat( WIDTH * HEIGHT));
+
         Text.go(0, 1);
         System.out.print(Text.colorize("█".repeat(WIDTH), 100));
         for (int i = 0; i < HEIGHT; i++){
@@ -169,7 +171,7 @@ public class Game{
   //Display the party and enemies
   //Do not write over the blank areas where text will appear.
   //Place the cursor at the place where the user will by typing their input at the end of this method.
-  public static void drawScreen(ArrayList<Adventurer> party, ArrayList<Adventurer>enemies){
+  public static void drawScreen(ArrayList<Adventurer> party, ArrayList<Adventurer>enemies, ArrayList<String> pastActions){
 
     drawBackground();
     TextBox(2, 2, LEFT_SIZE -2, 1, "Your Party: ");
@@ -179,8 +181,11 @@ public class Game{
 
     TextBox(14, 2, LEFT_SIZE -2, 1, "The Enemies: ");
     drawParty(enemies, 15);
-    //draw enemy party
+    //height is 30 
 
+    for(int i = 0; i < pastActions.size(); i++){
+      TextBox((i  * (HEIGHT - 7))/pastActions.size() + 2 , LEFT_SIZE + 1, WIDTH - (LEFT_SIZE + 1), (HEIGHT - 7) / pastActions.size(), pastActions.get(i));
+    }
   }
 
   public static String userInput(Scanner in){
@@ -240,10 +245,11 @@ public class Game{
     String input = "";//blank to get into the main loop.
     Scanner in = new Scanner(System.in);
     int dead = 0;
+    ArrayList<String> log = new ArrayList<String>();
     //Draw the window border
 
     //You can add parameters to draw screen!
-    drawScreen(party, enemies);//initial state.
+    drawScreen(party, enemies, log);//initial state.
 
     //Main loop
 
@@ -268,24 +274,37 @@ public class Game{
         //Process user input for the last Adventurer:
         if(input.startsWith("attack") || input.startsWith("a")){
           int choice = Integer.parseInt(input.substring(input.length() - 1)) - 1; //will not work on multi-digit input.
-          TextBox(HEIGHT - 1,2, WIDTH - 2, 2, party.get(whichPlayer).attack(enemies.get(choice)));
+          String action = party.get(whichPlayer).attack(enemies.get(choice));
+          // TextBox(HEIGHT - 1,2, WIDTH - 2, 2, action);
+          log.add("Party: " + action);
         }
         else if(input.startsWith("special") || input.startsWith("sp")){
           int choice = Integer.parseInt(input.substring(input.length() - 1)) - 1; //will not work on multi-digit input.
-          Text.go(HEIGHT - 4,2);}
+          String action = party.get(whichPlayer).specialAttack(enemies.get(choice));
+          // TextBox(HEIGHT - 1,2, WIDTH - 2, 2, action);
+          log.add("Party: " + action);}
+          
         else if(input.startsWith("su ") || input.startsWith("support ")){
           int choice = Integer.parseInt(input.substring(input.length() - 1)) - 1; //will not work on multi-digit input.
-          TextBox(HEIGHT - 1,2, WIDTH - 2, 2, party.get(whichPlayer).support(party.get(choice)));
+          String action = party.get(whichPlayer).support(party.get(choice));
+          // TextBox(HEIGHT - 1,2, WIDTH - 2, 2, action);
+          log.add("Party: " + action);
+
         }}
         catch(NumberFormatException | IndexOutOfBoundsException e){
           TextBox(HEIGHT - 4,2, WIDTH - 2, 2, "Invalid input. Make sure your input is in form 'command target' like su 1");
+          Text.go(HEIGHT - 2,2);
           input = userInput(in);
           continue;
         }
       }
+        if(log.size() > 3){
+          log.remove(0);
+        }
         //You should decide when you want to re-ask for user input
         //If no errors:
         whichPlayer++;
+
 
         if(whichPlayer >= party.size()){
           //This is a player turn.
@@ -293,7 +312,7 @@ public class Game{
           //This is after the player's turn, and allows the user to see the enemy turn
           //Decide where to draw the following prompt:
           String prompt = "press enter to see monster's turn";
-          TextBox(HEIGHT - 4,2, WIDTH - 2, 2, prompt);
+          // TextBox(HEIGHT - 4,2, WIDTH - 2, 2, prompt);
           partyTurn = false;
           whichOpponent = 0;
         }
@@ -314,17 +333,29 @@ public class Game{
         input = userInput(in);
         if(choices.get(actionChoice).equals("atk")){
           int target  = (int) (Math.random() * party.size());
-          TextBox(HEIGHT - 1,2, LEFT_SIZE - 2, 2, "enemy " + enemies.get(whichOpponent).attack(party.get(target)));
+          String action = "enemy " + enemies.get(whichOpponent).attack(party.get(target));
+          // TextBox(HEIGHT - 1,2, LEFT_SIZE - 2, 2, action);
+          log.add(action);
+
         }
         if(choices.get(actionChoice).equals("su")){
           int target  = (int) (Math.random() * enemies.size());
-          TextBox(HEIGHT - 1,2, LEFT_SIZE - 2, 2, "enemy " +enemies.get(whichOpponent).support(enemies.get(target)));
+          String action = "enemy " + enemies.get(whichOpponent).support(enemies.get(target));
+
+          // TextBox(HEIGHT - 1,2, LEFT_SIZE - 2, 2,  action);
+          log.add(action);
+
         }
         if(choices.get(actionChoice).equals("sp")){
           int target  = (int) (Math.random() * party.size());
-          TextBox(HEIGHT - 1,2, LEFT_SIZE - 2, 2,"enemy " + enemies.get(whichOpponent).specialAttack(party.get(target)));
+          String action = "enemy " + enemies.get(whichOpponent).specialAttack(party.get(target));
+          // TextBox(HEIGHT - 1,2, LEFT_SIZE - 2, 2,  action);
+          log.add(action);
         }
-        drawScreen(party, enemies);
+        if(log.size() > 3){
+          log.remove(0);
+        }
+        drawScreen(party, enemies, log);
         whichOpponent++;
 
       }//end of one enemy.
@@ -352,13 +383,14 @@ public class Game{
         }
       }
       
-      if(enemies.size() == 0 || party.size() == dead){
-        drawScreen(party, enemies);
+      if(enemies.size() == 0 || dead == party.size() ){
+        drawScreen(party, enemies, log);
         System.out.println("Game over. Press enter to quit");
         String a = userInput(in);
         break;
       }
-      drawScreen(party, enemies);
+
+      drawScreen(party, enemies, log);
 
     }
   
