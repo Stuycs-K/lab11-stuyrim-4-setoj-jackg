@@ -79,7 +79,7 @@ public class Boss extends Adventurer{
       addToTeam(toSpawn);
       ret += toSpawn + " and ";
     }
-    return ret.substring(ret.length() - 3);
+    return ret.substring(0, ret.length() - 3);
   }
   /*Restores 6 special and 1 hp to self.*/
   public String support(){

@@ -95,6 +95,9 @@ public class Game{
   *@param height the number of rows
   */
   public static void TextBox(int row, int col, int width, int height, String text){
+    if(text.length() > width * height){
+      text = text.substring(0, width * height);
+    }
     int placed = 0;
     Text.go(row, col);
     for (int i = 0; i < height; i++) {
@@ -265,7 +268,6 @@ public class Game{
         TextBox(HEIGHT - 4, 2,  WIDTH - 2, 1, prompt);
         Text.go(HEIGHT - 2,2);
         input = userInput(in);
-        //  public static void TextBox(int row, int col, int width, int height, String text){
 
         //Process user input for the last Adventurer:
         if(input.startsWith("attack") || input.startsWith("a")){
@@ -286,9 +288,19 @@ public class Game{
           // TextBox(HEIGHT - 1,2, WIDTH - 2, 2, action);
           log.add("Party: " + action);
 
-        }}
+        }
+        else{
+          TextBox(HEIGHT - 4,2, WIDTH - 2, 2, "Invalid input. Make sure your input is in form 'command target' like su 1");
+          TextBox(HEIGHT - 2, 2, WIDTH - 2, 1, " ");
+
+          Text.go(HEIGHT - 2,2);
+          input = userInput(in);
+          continue;
+        }
+      }
         catch(NumberFormatException | IndexOutOfBoundsException e){
           TextBox(HEIGHT - 4,2, WIDTH - 2, 2, "Invalid input. Make sure your input is in form 'command target' like su 1");
+          TextBox(HEIGHT - 2, 2, WIDTH - 2, 1, " ");
           Text.go(HEIGHT - 2,2);
           input = userInput(in);
           continue;
@@ -330,22 +342,21 @@ public class Game{
         input = userInput(in);
         if(choices.get(actionChoice).equals("atk")){
           int target  = (int) (Math.random() * party.size());
-          String action = "enemy " + enemies.get(whichOpponent).attack(party.get(target));
+          String action = "Enemy: " + enemies.get(whichOpponent).attack(party.get(target));
           // TextBox(HEIGHT - 1,2, LEFT_SIZE - 2, 2, action);
           log.add(action);
 
         }
         if(choices.get(actionChoice).equals("su")){
           int target  = (int) (Math.random() * enemies.size());
-          String action = "enemy " + enemies.get(whichOpponent).support(enemies.get(target));
-
+          String action = "Enemy: " + enemies.get(whichOpponent).support(enemies.get(target));
           // TextBox(HEIGHT - 1,2, LEFT_SIZE - 2, 2,  action);
           log.add(action);
 
         }
         if(choices.get(actionChoice).equals("sp")){
           int target  = (int) (Math.random() * party.size());
-          String action = "enemy " + enemies.get(whichOpponent).specialAttack(party.get(target));
+          String action = "Enemy: " + enemies.get(whichOpponent).specialAttack(party.get(target));
           // TextBox(HEIGHT - 1,2, LEFT_SIZE - 2, 2,  action);
           log.add(action);
         }
