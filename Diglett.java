@@ -6,7 +6,7 @@
     public Diglett(String name, int hp){
       super(name,hp);
       depthMax = 100;
-      depth = 10; //start 10 depth
+      depth = 0; //start 10 depth
     }
 
 
@@ -52,10 +52,10 @@
     /*AOE damage to all enemies
     */
     public String specialAttack(Adventurer other){
-        if(getSpecial() >= 30){
+        if(useSpecial(25)){
             //execute attack
 
-            return this + " burst out of the ground and dealt " +  damageOther(getEnemies(), 20)+" damage to all enemies";
+            return this + " burst out of the ground and dealt " +  damageOther(getEnemies(), 15)+" damage to all enemies";
         }else{
             return "Not enough depth to burst out and attack. Instead "+attack( other);
         }
@@ -67,8 +67,7 @@
         return support();}
 
     public String support(){
-        if(getSpecial() >= 5){
-            setSpecial(getSpecial()-5);
+        if(useSpecial(5)){
             for(Adventurer friend: getFriends()){
                 friend.setmaxHP(friend.getmaxHP() + 2);
             }

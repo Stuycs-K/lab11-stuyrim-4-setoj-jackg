@@ -95,10 +95,16 @@ public class Game{
   *@param height the number of rows
   */
   public static void TextBox(int row, int col, int width, int height, String text){
+
+    int placed = 0;
+    if(text.endsWith("0m")){
+      System.out.print(text.substring(0, 8));
+      text = text.substring(8);
+    } //ideall detects the color changes{}
+
     if(text.length() > width * height){
       text = text.substring(0, width * height);
     }
-    int placed = 0;
     Text.go(row, col);
     for (int i = 0; i < height; i++) {
       Text.go(row + i, col);
@@ -113,7 +119,7 @@ public class Game{
         // System.out.print("\n");
         row++;
       }else{
-        System.out.println(text.substring(placed));
+        System.out.print(text.substring(placed));
         placed = text.length();
       }
     }
@@ -127,11 +133,11 @@ public class Game{
     public static Adventurer createRandomAdventurer(){
       int adventurerNumber = (int) (Math.random() * 3); //excludes boss
       if(adventurerNumber == 0){
-        return new CodeWarrior();
+        return new CodeWarrior("Bad codewarior");
       }else if(adventurerNumber == 1){
-        return new Shaymin();
+        return new Shaymin("Bad Shaymin");
       }else if(adventurerNumber == 2){
-        return new Diglett();
+        return new Diglett("Bad Diglett");
       }
       System.out.println("something went wrong");
       return null;
@@ -165,6 +171,7 @@ public class Game{
     
     // under 75% : yellow
     output = hp + " / " + maxHP;
+
     if ((float) hp  / maxHP < .75) {
       output = Text.colorize(hp+ "/" + maxHP,  43 );
     }
@@ -172,6 +179,9 @@ public class Game{
     if ((float) hp  / maxHP < .25) {
       
       output = Text.colorize(hp+ "/" + maxHP, 41 );
+    }
+    if(hp == 0){
+      output = Text.colorize(hp + "/" + maxHP, Text.CYAN);
     }
     return output;
   }
@@ -274,7 +284,7 @@ public class Game{
         if(!party.get(whichPlayer).isDead()){
         try{
         String prompt = "Enter command for "+party.get(whichPlayer)+": attack/special/quit ";
-        TextBox(HEIGHT - 4, 2,  WIDTH - 2, 1, prompt);
+        TextBox(HEIGHT - 4, 2,  WIDTH - 2, 3, prompt);
         Text.go(HEIGHT - 2,2);
         input = userInput(in);
 
@@ -283,14 +293,16 @@ public class Game{
           int choice = Integer.parseInt(input.substring(input.length() - 1)) - 1; //will not work on multi-digit input.
           String action = party.get(whichPlayer).attack(enemies.get(choice));
           // TextBox(HEIGHT - 1,2, WIDTH - 2, 2, action);
+          // log.add(Text.colorize("Party: ", Text.GREEN) + action);
           log.add("Party: " + action);
+
         }
         else if(input.startsWith("special") || input.startsWith("sp")){
           int choice = Integer.parseInt(input.substring(input.length() - 1)) - 1; //will not work on multi-digit input.
           String action = party.get(whichPlayer).specialAttack(enemies.get(choice));
           // TextBox(HEIGHT - 1,2, WIDTH - 2, 2, action);
-          log.add("Party: " + action);}
-          
+          log.add("Party: " + action);
+        }
         else if(input.startsWith("su ") || input.startsWith("support ")){
           int choice = Integer.parseInt(input.substring(input.length() - 1)) - 1; //will not work on multi-digit input.
           String action = party.get(whichPlayer).support(party.get(choice));
@@ -299,7 +311,7 @@ public class Game{
 
         }
         else{
-          TextBox(HEIGHT - 4,2, WIDTH - 2, 2, "Invalid input. Make sure your input is in form 'command target' like su 1");
+          TextBox(HEIGHT - 4,2, WIDTH - 2, 2, "Invalid input. Make sure your input is in form 'command target' like su 1. Press Enter before inputting your new command.");
           TextBox(HEIGHT - 2, 2, WIDTH - 2, 1, " ");
 
           Text.go(HEIGHT - 2,2);
@@ -308,7 +320,7 @@ public class Game{
         }
       }
         catch(NumberFormatException | IndexOutOfBoundsException e){
-          TextBox(HEIGHT - 4,2, WIDTH - 2, 2, "Invalid input. Make sure your input is in form 'command target' like su 1");
+          TextBox(HEIGHT - 4,2, WIDTH - 2, 2, "Invalid input. Make sure your input is in form 'command target' like su 1. Press Enter before inputting your new command.");
           TextBox(HEIGHT - 2, 2, WIDTH - 2, 1, " ");
           Text.go(HEIGHT - 2,2);
           input = userInput(in);
@@ -351,22 +363,22 @@ public class Game{
         input = userInput(in);
         if(choices.get(actionChoice).equals("atk")){
           int target  = (int) (Math.random() * party.size());
-          String action = "Enemy: " + enemies.get(whichOpponent).attack(party.get(target));
-          // TextBox(HEIGHT - 1,2, LEFT_SIZE - 2, 2, action);
+          // String action = Text.colorize("Enemy: ", Text.RED)+ enemies.get(whichOpponent).attack(party.get(target));
+          String action = "Enemy: "+ enemies.get(whichOpponent).attack(party.get(target));
           log.add(action);
 
         }
         if(choices.get(actionChoice).equals("su")){
           int target  = (int) (Math.random() * enemies.size());
-          String action = "Enemy: " + enemies.get(whichOpponent).support(enemies.get(target));
-          // TextBox(HEIGHT - 1,2, LEFT_SIZE - 2, 2,  action);
+          // String action = Text.colorize("Enemy: ", Text.RED) + enemies.get(whichOpponent).support(enemies.get(target));
+          String action = "Enemy: "+ enemies.get(whichOpponent).attack(party.get(target));
           log.add(action);
 
         }
         if(choices.get(actionChoice).equals("sp")){
           int target  = (int) (Math.random() * party.size());
-          String action = "Enemy: " + enemies.get(whichOpponent).specialAttack(party.get(target));
-          // TextBox(HEIGHT - 1,2, LEFT_SIZE - 2, 2,  action);
+          // String action = Text.colorize("Enemy: ", Text.RED) + enemies.get(whichOpponent).specialAttack(party.get(target));
+          String action = "Enemy: "+ enemies.get(whichOpponent).attack(party.get(target));
           log.add(action);
         }
         if(log.size() > 3){
@@ -400,9 +412,15 @@ public class Game{
         }
       }
       
-      if(enemies.size() == 0 || dead == party.size() ){
+      if(enemies.size() == 0){
+        log.add(Text.colorize("You win! yay!. Press enter to quit", Text.GREEN));
         drawScreen(party, enemies, log);
-        System.out.println("Game over. Press enter to quit");
+        // System.out.println("Game over. Press enter to quit");
+        String a = userInput(in);
+        break;
+      }else if( dead == party.size() ){
+        log.add(Text.colorize("You lose. Press enter to quit", Text.RED));
+        drawScreen(party, enemies, log);
         String a = userInput(in);
         break;
       }
