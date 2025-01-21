@@ -102,18 +102,18 @@ public class Game{
     Text.go(row, col);
     for (int i = 0; i < height; i++) {
       Text.go(row + i, col);
-      System.out.print(Text.colorize(" ".repeat(width), Text.BACKGROUND + Text.BLUE));
+      System.out.print(" ".repeat(width));
     }
 
     while(placed < text.length()){
       Text.go(row, col);
       if(text.length() - placed > width){
-        System.out.print(Text.colorize(text.substring(placed, placed + width),Text.BACKGROUND + Text.GREEN) );
+        System.out.print(text.substring(placed, placed + width));
         placed += width;
         // System.out.print("\n");
         row++;
       }else{
-        System.out.println(Text.colorize( text.substring(placed), Text.BACKGROUND + Text.GREEN ));
+        System.out.println(text.substring(placed));
         placed = text.length();
       }
     }
