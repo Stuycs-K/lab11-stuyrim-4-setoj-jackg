@@ -102,7 +102,7 @@ public class Game{
     Text.go(row, col);
     for (int i = 0; i < height; i++) {
       Text.go(row + i, col);
-      System.out.print(Text.colorize(" ".repeat(width), Text.BACKGROUND + Text.RED));
+      System.out.print(Text.colorize(" ".repeat(width), Text.BACKGROUND + Text.BLUE));
     }
 
     while(placed < text.length()){
@@ -150,7 +150,7 @@ public class Game{
       double printableWidth = LEFT_SIZE - 2;
       for(int i = 0; i < party.size(); i++){
         TextBox( startRow,(int)  ( 2 + printableWidth * (i) / party.size()), (int) ( printableWidth / party.size()), 1, party.get(i).getName());
-        TextBox(startRow + 1,(int)  ( 2 + printableWidth * (i) / party.size()),(int) ( printableWidth / party.size()), 1, "HP: " + party.get(i).getHP());
+        TextBox(startRow + 1,(int)  ( 2 + printableWidth * (i) / party.size()),(int) ( printableWidth / party.size()), 1, "HP: " + colorByPercent(party.get(i).getHP(), party.get(i).getmaxHP()));
        TextBox(startRow + 2, (int)  (2 + printableWidth * (i) / party.size()), (int)  (printableWidth / party.size()), 1, party.get(i).getSpecialName() + ": " + party.get(i).getSpecial());
     }
 
@@ -159,11 +159,20 @@ public class Game{
 
   //Use this to create a colorized number string based on the % compared to the max value.
   public static String colorByPercent(int hp, int maxHP){
-    String output = String.format("%2s", hp+"")+"/"+String.format("%2s", maxHP+"");
+    String output = "";
     //COLORIZE THE OUTPUT IF HIGH/LOW:
     // under 25% : red
+    
     // under 75% : yellow
+    output = hp + " / " + maxHP;
+    if ((float) hp  / maxHP < .75) {
+      output = Text.colorize(hp+ "/" + maxHP,  43 );
+    }
     // otherwise : white
+    if ((float) hp  / maxHP < .25) {
+      
+      output = Text.colorize(hp+ "/" + maxHP, 41 );
+    }
     return output;
   }
 
