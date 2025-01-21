@@ -350,8 +350,7 @@ public class Game{
         choices.add("atk");
         choices.add("su");
         choices.add("sp");
-        int actionChoice = (int) (Math.random() * choices.size());
-
+        int actionChoice = (int) (Math.random() * 3);
         //Decide where to draw the following prompt:
         String prompt = "press enter to see enemy " +  enemies.get(whichOpponent) + "'s turn";
         TextBox(HEIGHT - 4,2, LEFT_SIZE - 2, 1, prompt);
@@ -360,21 +359,21 @@ public class Game{
         if(choices.get(actionChoice).equals("atk")){
           int target  = (int) (Math.random() * party.size());
           // String action = Text.colorize("Enemy: ", Text.RED)+ enemies.get(whichOpponent).attack(party.get(target));
-          String action = "Enemy: "+ enemies.get(whichOpponent).attack(party.get(target));
+          String action = "Enemy: " + enemies.get(whichOpponent).attack(party.get(target));
           log.add(action);
 
         }
         if(choices.get(actionChoice).equals("su")){
           int target  = (int) (Math.random() * enemies.size());
           // String action = Text.colorize("Enemy: ", Text.RED) + enemies.get(whichOpponent).support(enemies.get(target));
-          String action = "Enemy: "+ enemies.get(whichOpponent).attack(party.get(target));
+          String action = "Enemy: "+ enemies.get(whichOpponent).support(enemies.get(target));
           log.add(action);
 
         }
         if(choices.get(actionChoice).equals("sp")){
           int target  = (int) (Math.random() * party.size());
           // String action = Text.colorize("Enemy: ", Text.RED) + enemies.get(whichOpponent).specialAttack(party.get(target));
-          String action = "Enemy: "+ enemies.get(whichOpponent).attack(party.get(target));
+          String action = "Enemy: "+ enemies.get(whichOpponent).specialAttack(party.get(target));
           log.add(action);
         }
         if(log.size() > 3){
