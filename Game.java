@@ -97,10 +97,6 @@ public class Game{
   public static void TextBox(int row, int col, int width, int height, String text){
 
     int placed = 0;
-    if(text.endsWith("0m")){
-      System.out.print(text.substring(0, 8));
-      text = text.substring(8);
-    } //ideall detects the color changes{}
 
     if(text.length() > width * height){
       text = text.substring(0, width * height);
